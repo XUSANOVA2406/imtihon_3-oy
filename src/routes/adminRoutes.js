@@ -4,7 +4,8 @@ import {checkToken} from "../middlewares/auth.js"
 import {roleGuard } from "../middlewares/roleCheck.js"
 
 const router=Router()
-router.get('/',checkToken, roleGuard("SuperAdmin"), getAllAdmins)
-router.delete('/:id', checkToken, roleGuard("SuperAdmin"), deleteStaff)
+router
+    .get('/',checkToken, roleGuard("SuperAdmin"), getAllAdmins)
+    .delete('/:id', checkToken, roleGuard("SuperAdmin"), deleteStaff)
 
 export default router

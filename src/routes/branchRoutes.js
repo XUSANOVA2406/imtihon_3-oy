@@ -1,43 +1,13 @@
 import express from "express"
-import {
-  getAll,
-  getOne,
-  create,
-  update,
-  remove
-} from "../controllers/branchController.js";
+import {getAll,getOne,create,update,remove} from "../controllers/branchController.js"
 
-import checkToken from "../middlewares/checkToken.js";
-import checkPermission from "../middlewares/checkPermission.js";
+import checkToken from "../middlewares/checkToken.js"
+import roleGuard from "../middlewares/roleGuard.js"
 const router = express.Router()
-router.get(
-  "/",
-  checkToken,
-  checkPermission("branch:read"),
-  getAll
-)
-router.get(
-  "/:id",
-  checkToken,
-  checkPermission("branch:read"),
-  getOne
-)
-router.post(
-  "/",
-  checkToken,
-  checkPermission("branch:create"),
-  create
-)
-router.put(
-  "/:id",
-  checkToken,
-  checkPermission("branch:update"),
-  update
-)
-router.delete(
-  "/:id",
-  checkToken,
-  checkPermission("branch:delete"),
-  remove
-)
+router
+  .get("/",checkToken,roleGuard("branch:read"),getAll)
+  .get("/:id",checkToken,roleGuard("branch:read"),getOne)
+  .post("/",checkToken,roleGuard("branch:create"),create)
+  .put("/:id",checkToken,roleGuard("branch:update"),update)
+  .delete("/:id",checkToken,roleGuard("branch:delete"),remove)
 export default router

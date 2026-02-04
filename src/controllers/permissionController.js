@@ -6,7 +6,6 @@ export const addPermission = async (req, res, next) => {
     if (!user) {
       return res.status(404).json({ message: "Foydalanuvchi topilmadi" })
     }
-
     user.permissions = permissions
     await user.save()
     res.json({

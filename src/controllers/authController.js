@@ -3,15 +3,7 @@ import jwt from "jsonwebtoken"
 import User from "../models/User.js"
 export const register = async (req, res, next) => {
   try {
-    const {
-      username,
-      password,
-      repeat_password,
-      branch,
-      birthdate,
-      gender,
-      role
-    } = req.body
+    const {username,password,repeat_password,branch,birthdate,gender,role} = req.body
     if (password !== repeat_password) {
       return res.status(400).json({ message: "Password xato" })
     }
@@ -19,14 +11,7 @@ export const register = async (req, res, next) => {
       return res.status(403).json({ message: "Kirolmaysiz" })
     }
     const hashed = await bcrypt.hash(password, 10)
-    const user = await User.create({
-      username,
-      password: hashed,
-      branch,
-      birthdate,
-      gender,
-      role
-    })
+    const user = await User.create({username,password: hashed,branch,birthdate,gender,role})
     res.status(201).json({ message: "Registered successfully" });
   } catch (err) {
     next(err);

@@ -1,4 +1,4 @@
-export default (permission) => {
+export default (roleGuard) => {
   return (req, res, next) => {
     if(
       req.user.role === "SuperAdmin" ||
